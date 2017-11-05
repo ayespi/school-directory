@@ -1,5 +1,6 @@
 <?php
   $sql = "SELECT * FROM `".$this->table."` 
-          ORDER BY school_name ASC;";
+          WHERE school_ID='$id' 
+          LIMIT 1;";
   $result = $this->process_query($sql);
 ?>

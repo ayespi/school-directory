@@ -1,5 +1,5 @@
 <?php
-require('../../__CONNECT/wmi-connect.php');
+// require('../../__CONNECT/wmi-connect.php');
 class School
 {
   public $connection;
@@ -11,6 +11,7 @@ class School
   public $city;
   public $state;
   public $zip;
+  public $image_url;
   public $date_added;
   public $data;
   public $json;
@@ -23,11 +24,11 @@ class School
   }
   public function create_table()
   {
-    include('../assets/sql/create_schools_table.php');
+    include('../../assets/sql/create_schools_table.php');
   }
   public function get_all()
   {
-    include('../assets/sql/get_all_schools.php');
+    include('../../assets/sql/get_all_schools.php');
     if($result){
       return $this->get_data($result);
     }
@@ -37,87 +38,97 @@ class School
 public function get_data($result)
 {
   $this->data = array();
-  while($row = mysqli_fetch_assoc($result))
-  {
-    $this->data[] = array(
+  $rows = mysqli_num_rows($result);
+  if($rows > 1){
+    while($row = mysqli_fetch_assoc($result))
+    {
+      $this->data[] = array(
+            'id'          =>   $row['school_ID'],
+            'name'        =>   $row['school_name'],
+            'address'     =>   $row['school_address'],
+            'city'        =>   $row['school_city'],
+            'state'       =>   $row['school_state'],
+            'zip'         =>   $row['school_zip'],
+            'image_url'   =>   $row['school_image_url'],
+            'date_added'  =>   $row['school_date_added']
+      );
+    }
+  }else{
+    $row = mysqli_fetch_assoc($result);
+    $this->data = array(
+      'id'          =>   $row['school_ID'],
+      'name'        =>   $row['school_name'],
+      'address'     =>   $row['school_address'],
+      'city'        =>   $row['school_city'],
+      'state'       =>   $row['school_state'],
+      'zip'         =>   $row['school_zip'],
+      'image_url'   =>   $row['school_image_url'],
+      'date_added'  =>   $row['school_date_added']
+    );
+  }
+
+  $this->json = json_encode($this->data);
+  return $this->data;
+}
+// *** Get First ID ***
+public function get_first_id()
+{
+  include('../../assets/sql/get_first_id.php');
+  if($result){
+    $row = mysqli_fetch_assoc($result);
+    return $row['school_ID'];
+  }
+}
+// *** Get Results For One ***
+public function get_one($result)
+{
+  $row = mysqli_fetch_assoc($result);
+  
+    $this->data = array(
           'id'          =>   $row['school_ID'],
           'name'        =>   $row['school_name'],
           'address'     =>   $row['school_address'],
           'city'        =>   $row['school_city'],
           'state'       =>   $row['school_state'],
           'zip'         =>   $row['school_zip'],
+          'image_url'   =>   $row['school_image_url'],
           'date_added'  =>   $row['school_date_added']
     );
-  }
+  
   $this->json = json_encode($this->data);
   return $this->data;
 }
 
-public function insert_data()
+// *** Get One School ***
+public function get_one_by_id($id)
 {
-  // INSERT INTO `schools` (
-  //   `school_ID`, 
-  //   `school_name`, 
-  //   `school_address`, 
-  //   `school_city`, 
-  //   `school_state`, 
-  //   `school_zip`, 
-  //   `school_date_added`
-  //   ) VALUES (
-  //     NULL, 
-  //     'Woodstream Christian Academy', 
-  //     '9800 Lottsford Road', 
-  //     'Mitchellville', 
-  //     'MD', 
-  //     '20721', 
-  //     CURRENT_TIMESTAMP
-  //   ), (
-  //     NULL, 
-  //     'Grace Brethern Christian School', 
-  //     '6501 Surratts Road', 
-  //     'Clinton', 
-  //     'MD', 
-  //     '20735', 
-  //     CURRENT_TIMESTAMP
-  //   );
-
-}
-  // public function get_data($result)
-  // {
-  //   $rows = mysqli_num_rows($result);
-  //   if($rows > 0){
-  //     while($row = mysqli_fetch_assoc($result)){
-  //       $this->data[] = array(
-  //         'id'          =>   $row['school_ID'],
-  //         'name'        =>   $row['school_name'],
-  //         'address'     =>   $row['school_address'],
-  //         'city'        =>   $row['school_city'],
-  //         'state'       =>   $row['school_state'],
-  //         'zip'         =>   $row['school_zip'],
-  //         'date_added'  =>   $row['school_date_added']
-  //       );
-  //     }
-  //   }else{
-  //     $this->data = array(
-  //       'id'          =>   $row['school_ID'],
-  //       'name'        =>   $row['school_name'],
-  //       'address'     =>   $row['school_address'],
-  //       'city'        =>   $row['school_city'],
-  //       'state'       =>   $row['school_state'],
-  //       'zip'         =>   $row['school_zip'],
-  //       'date_added'  =>   $row['school_date_added']
-  //     );
-  //   }
-  //   $this->json = json_encode($this->data);
-  //   return $this->data;
-  // }
-
-
-
-  public function process_query($sql)
-  {
-    return $result = mysqli_query($this->connection, $sql);
+  include('../../assets/sql/get_one_school_by_id.php');
+  if($result){
+    return $this->get_one($result);
   }
+}
+
+  // *** Insert School ***
+  public function insert($params)
+  {
+    $this->set_params($params);
+    include('../../assets/sql/insert_school.php');
+  }
+  // *** Process Query ***
+    public function process_query($sql)
+    {
+      return mysqli_query($this->connection, $sql);
+    }
+  // *** Set Params ***
+  public function set_params($params)
+  {
+    $this->name       = $params['name'];
+    $this->address    = $params['address'];
+    $this->city       = $params['city'];
+    $this->state      = $params['state'];
+    $this->zip        = $params['zip'];
+    $this->image_url  = $params['image_url'];
+  }  
 }
 
 ?>

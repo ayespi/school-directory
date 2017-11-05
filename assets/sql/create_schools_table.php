@@ -6,6 +6,7 @@
             `school_city` VARCHAR(50) NOT NULL , 
             `school_state` VARCHAR(50) NOT NULL , 
             `school_zip` VARCHAR(10) NOT NULL , 
+            `school_image_url` VARCHAR(255) NULL , 
             `school_date_added` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , 
             PRIMARY KEY (`school_ID`)
             ) ENGINE = InnoDB;";
