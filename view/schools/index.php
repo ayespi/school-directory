@@ -1,9 +1,7 @@
 <?php 
 require('./config.php');
-
-$School = new School($connection);
-$Schools = $School->get_all();
-prewrap($Schools);
+$Controller = new SchoolsController($connection);
+$Schools = $Controller->Index();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +23,8 @@ prewrap($Schools);
         </tr>
         <?php 
           $count = 1;
-          foreach ($Schools as $school) { 
+          foreach ($Schools as $school) 
+          { 
             $id = $school['id'];
           ?>
         <tr>
@@ -36,11 +35,11 @@ prewrap($Schools);
           <td><a href="./show.php?id=<?php echo($id);?>">View Detail</a></td>
         </tr>
         <?php 
-          $count++;
+            $count++;
           } 
         ?>
       </table>
-      <p><a href="./new.php">Add School</a></p>
+      <p><a href="./new.php">Add School</a> | <a href="./json.php" target="_blank">View JSON</a></p>
     </div>
   </body>
 </html>
