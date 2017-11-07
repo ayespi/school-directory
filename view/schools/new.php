@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Add School</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="../../assets/css/styles.css" rel="stylesheet">
-  </head>
-  <body>
+<?php include('../../assets/includes/header.inc.php'); ?>
     <div class="container">
       <h1>Add School</h1>
+      <hr>
       <form action="./create.php" method="post">
         <p>
           <label for="school_name">Name</label><br>
@@ -34,8 +27,7 @@
           <label for="school_image_url">Image URL</label><br>
           <input type="text" name="school_image_url" id="school_image_url">
         </p>
-        <p><input type="submit" name="add_school" value="Submit"> | <a href="./index.php">View Schools</a></p>
+        <p><input type="submit" name="add_school" value="Submit"> | <a href="./index.php">Cancel</a></p>
       </form>
     </div>
-  </body>
-</html>
+<?php include('../../assets/includes/header.inc.php'); ?>

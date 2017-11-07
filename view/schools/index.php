@@ -2,19 +2,11 @@
 require('./config.php');
 $Controller = new SchoolsController($connection);
 $Schools = $Controller->Index();
+include('../../assets/includes/header.inc.php'); 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Schools Index</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="../../assets/css/styles.css" rel="stylesheet">
-  </head>
-  <body>
     <div class="container">
-      <h1>Schools</h1>
-      <table>
+      <h1>School Directory</h1>
+      <table class="table table-bordered table-condensed">
         <tr>
           <th>No.</th>
           <th>Name</th>
@@ -39,7 +31,7 @@ $Schools = $Controller->Index();
           } 
         ?>
       </table>
+      <hr>
       <p><a href="./new.php">Add School</a> | <a href="./json.php" target="_blank">View JSON</a></p>
     </div>
-  </body>
-</html>
+<?php include('../../assets/includes/header.inc.php'); ?>

@@ -1,1 +1,6 @@
-body{background-color: beige;}
+body{background-color: rgb(5, 34, 97); font-family: 'century gothic', helvetica, Arial, sans-serif; font-size: 16px;}
+.container{width: 500px; background-color: #fff; margin: 30px auto; padding: 30px 20px;}
+.banner-school img{width: 100%; height: auto;}
+.banner-school .controls-cycle{text-align: center; padding: 15px 0px 0px 0px;}
+
+/* .container .content-delete{width: 400px; height: auto;} */

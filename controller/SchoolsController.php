@@ -35,14 +35,12 @@ class SchoolsController
 
   public function Create($params)
   {
-    // $this->School->set_params($params);
     $this->School->insert($params);
   }
 
   public function Update($params)
   {
-    $this->School->set_params_u($params);
-    $this->School->update();
+    $this->School->update($params);
   }
 
   public function Delete($id)

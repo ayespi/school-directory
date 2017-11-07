@@ -16,6 +16,8 @@ class School
   public $current;
   public $previous;
   public $next;
+  public $first;
+  public $last;
   public $data;
   public $json;
 
@@ -25,19 +27,17 @@ class School
     $this->connection = $connection;
     $this->create_table();
   }
-// *** Check If ID Exists ***
-  public function check_id_exists($id)
-  {
-    include('../../assets/sql/check_id_exists.php');
-    if($result){
-      return true;
-    }
-    return false;
-  }
+
 // *** Create Schools Table ***  
   public function create_table()
   {
     include('../../assets/sql/create_schools_table.php');
+  }
+// *** Delete/Destroy School ***
+  public function destroy($id)
+  {
+    include('../../assets/sql/destroy_school.php');
+    redirect('./index.php');
   }
 // *** Get All Schools ***
   public function get_all()
@@ -96,7 +96,8 @@ class School
 // *** Get ID - First ***
   public function get_id_first()
   {
-    return $this->get_first_id();
+    $this->first =  $this->get_first_id();
+    return $this->first;
   }
 // *** Get ID - Last ***
   public function get_id_last()
@@ -104,9 +105,39 @@ class School
     include('../../assets/sql/get_id_last.php');
     if($result){
       $row = mysqli_fetch_assoc($result);
-      return $row['school_ID'];
+      $this->last = $row['school_ID'];
+      return $this->last;
     }
-
+  }
+// *** Get Next ID ***
+  public function get_id_next($id)
+  {
+    $current = $id;
+    $last = $this->get_id_last();
+    if($current == $last){
+      return $last;
+    }
+    include('../../assets/sql/get_id_next.php');
+    if($result){
+      $row = mysqli_fetch_assoc($result);
+      $this->next = $row['school_ID'];
+      return $this->next;
+    }
+  }
+// *** Get Previous ID ***
+  public function get_id_prev($id)
+  {
+    $current = $id;
+    $first = $this->get_id_first();
+    if($current == $first){
+      return $first;
+    }
+    include('../../assets/sql/get_id_previous.php');
+    if($result){
+      $row = mysqli_fetch_assoc($result);
+      $this->previous = $row['school_ID'];
+      return $this->previous;
+    }
   }
 
 // *** Get Results For One ***
@@ -137,23 +168,7 @@ class School
       return $this->get_one($result);
     }
   }
-// *** Goto Next ***
-  public function get_next_id($id)
-  {
-    $current  = $id;
-    $next     = $current + 1;
 
-    return $next;
-
-  }
-// *** Goto Previous ***
-  public function get_prev_id($id)
-  {
-    $current  = $id;
-    $prev     = $current - 1;
-    
-    return $prev;
-  }
 // *** Get Row Number***
   public function get_rows()
   {
@@ -196,8 +211,9 @@ class School
     $this->image_url  = $params['image_url'];
   }  
   // *** Update School ***
-  public function update()
+  public function update($params)
   {
+    $this->set_params_u($params);
     include('../../assets/sql/update_school.php');
     // prewrap($sql);
   }

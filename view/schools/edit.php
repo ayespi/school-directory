@@ -11,16 +11,8 @@
   $school = $Controller->Show($id);
 
   // prewrap($school);
+  include('../../assets/includes/header.inc.php'); 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Edit School</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="../../assets/css/styles.css" rel="stylesheet">
-  </head>
-  <body>
     <div class="container">
       <h1>Edit School</h1>
       <form action="./update.php" method="post">
@@ -54,5 +46,4 @@
         <p><input type="submit" name="update_school" value="Submit"> | <a href="./index.php">View Schools</a></p>
       </form>
     </div>
-  </body>
-</html>
+<?php include('../../assets/includes/footer.inc.php'); ?>
