@@ -16,33 +16,33 @@
     <div class="container">
       <h1>Edit School</h1>
       <form action="./update.php" method="post">
-        <p>
+        <div class="form-group">
           <input type="hidden" name="school_ID" value="<?php echo($id);?>">
-        </p>
-        <p>
+        </div>
+        <div class="form-group">
           <label for="school_name">Name</label><br>
-          <input type="text" name="school_name" id="school_name" value="<?php echo($school['name']);?>">
-        </p>
-        <p>
+          <input class="form-control" type="text" name="school_name" id="school_name" value="<?php echo($school['name']);?>">
+        </div>
+        <div class="form-group">
           <label for="school_address">Address</label><br>
-          <input type="text" name="school_address" id="school_address" value="<?php echo($school['address']);?>">
-        </p>
-        <p>
+          <input class="form-control" type="text" name="school_address" id="school_address" value="<?php echo($school['address']);?>">
+        </div>
+        <div class="form-group">
           <label for="school_city">City</label><br>
-          <input type="text" name="school_city" id="school_city" value="<?php echo($school['city']);?>">
-        </p>
-        <p>
+          <input class="form-control" type="text" name="school_city" id="school_city" value="<?php echo($school['city']);?>">
+        </div>
+        <div class="form-group">
           <label for="school_state">State</label><br>
-          <input type="text" name="school_state" id="school_state" value="<?php echo($school['state']);?>">
-        </p>
-        <p>
+          <input class="form-control" type="text" name="school_state" id="school_state" value="<?php echo($school['state']);?>">
+        </div>
+        <div class="form-group">
           <label for="school_name">Zip</label><br>
-          <input type="text" name="school_zip" id="school_zip" value="<?php echo($school['zip']);?>">
-        </p>
-        <p>
+          <input class="form-control" type="text" name="school_zip" id="school_zip" value="<?php echo($school['zip']);?>">
+        </div>
+        <div class="form-group">
           <label for="school_image_url">Image URL</label><br>
-          <input type="text" name="school_image_url" id="school_image_url" value="<?php echo($school['image_url']);?>">
-        </p>
+          <input class="form-control" type="text" name="school_image_url" id="school_image_url" value="<?php echo($school['image_url']);?>">
+        </div>
         <p><input type="submit" name="update_school" value="Submit"> | <a href="./index.php">View Schools</a></p>
       </form>
     </div>
